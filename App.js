@@ -11,7 +11,6 @@ export default class App extends React.Component {
                     <Title>Welcome back,</Title>
                     <Name>Meng</Name>
                 </TitleBar>
-                <Avatar source={require("./assets/avatar.jpg")} />
                 <Subtitle>Continue Learning</Subtitle>
                 <Card />
             </Container>
@@ -22,12 +21,12 @@ export default class App extends React.Component {
 const Container = styled.View`
     background: #f0f3f5;
     flex: 1;
+    padding: 0 20px;
 `;
 
 const TitleBar = styled.View`
     width: 100%;
     margin-top: 50px;
-    padding-left: 20px;
 `;
 
 const Title = styled.Text`
@@ -40,8 +39,7 @@ const Subtitle = styled.Text`
     color: #b8bece;
     font-weight: 600;
     font-size: 15px;
-    margin-left: 20px;
-    margin-top: 50px;
+    margin-top: 25px;
     text-transform: uppercase;
 `;
 
@@ -51,13 +49,12 @@ const Name = styled.Text`
     font-weight: bold;
 `;
 
-const Avatar = styled.Image`
-    width: 44px;
-    height: 44px;
-    background: black;
-    border-radius: 22px;
-    margin-left: 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-`;
+// const Avatar = styled.Image`
+//     width: 44px;
+//     height: 44px;
+//     background: black;
+//     border-radius: 22px;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+// `;
