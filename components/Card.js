@@ -1,16 +1,16 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Card = props => (
     <Container>
         <Cover>
-            <Image source={require("../assets/background2.jpg")} />
+            <Image source={props.image} />
             <Title>Styled Components</Title>
         </Cover>
         <Content>
-            <Logo source={require("../assets/logo-react.png")} />
-            <Caption>React Native</Caption>
-            <Subtitle>5 of 12 sections</Subtitle>
+            <Logo source={props.logo} />
+            <Caption>{props.caption}</Caption>
+            <Subtitle>{props.subtitle}</Subtitle>
         </Content>
     </Container>
 );
@@ -19,11 +19,11 @@ export default Card;
 
 const Container = styled.View`
     background-color: white;
-    width: 100%;
+    width: 350px;
     height: 280px;
     border-radius: 14px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    margin-top: 20px;
+    margin: 20px 0 0 20px;
 `;
 
 const Cover = styled.View`

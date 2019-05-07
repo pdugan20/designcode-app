@@ -1,18 +1,52 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import styled from 'styled-components';
 import Card from './components/Card';
+import Logo from './components/Logo';
+import styled from 'styled-components';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+import { NotificationIcon } from './Icons';
+
 
 export default class App extends React.Component {
     render() {
         return (
             <Container>
-                <TitleBar>
-                    <Title>Welcome back,</Title>
-                    <Name>Meng</Name>
-                </TitleBar>
-                <Subtitle>Continue Learning</Subtitle>
-                <Card />
+                <SafeAreaView>
+                    <ScrollView style={{ height: '100%'}} >
+                        <TitleBar>
+                            <Title>Welcome back,</Title>
+                            <Name>Meng</Name>
+                            <NotificationIcon
+                                style={{ position: 'absolute', right: 40, top: 10 }}
+                            />
+                        </TitleBar>
+                        <ScrollView
+                            style={{ flexDirection: 'row', padding: 20, paddingLeft: 12, paddingTop: 30 }}
+                            horizontal={true}>
+                            <Logo image={require('./assets/logo-framerx.png')} text='Framer X' />
+                            <Logo image={require('./assets/logo-figma.png')} text='Figma' />
+                        </ScrollView>
+                        <Subtitle>Continue Learning</Subtitle>
+                        <ScrollView
+                            horizontal={true}
+                            style={{paddingBottom:30}}
+                            showsHorizontalScrollIndicator={false}>
+                            <Card
+                                title='Styled Components'
+                                image={require('./assets/background2.jpg')}
+                                caption='React Native'
+                                logo={require('./assets/logo-react.png')}
+                                subtitle='5 of 12 sections'
+                            />
+                            <Card
+                                title='Styled Components'
+                                image={require('./assets/background2.jpg')}
+                                caption='React Native'
+                                logo={require('./assets/logo-react.png')}
+                                subtitle='5 of 12 sections'
+                            />
+                        </ScrollView>
+                    </ScrollView>
+                </SafeAreaView>
             </Container>
         );
     }
@@ -21,12 +55,12 @@ export default class App extends React.Component {
 const Container = styled.View`
     background: #f0f3f5;
     flex: 1;
-    padding: 0 20px;
 `;
 
 const TitleBar = styled.View`
     width: 100%;
     margin-top: 50px;
+    margin-left: 20px;
 `;
 
 const Title = styled.Text`
@@ -39,7 +73,7 @@ const Subtitle = styled.Text`
     color: #b8bece;
     font-weight: 600;
     font-size: 15px;
-    margin-top: 25px;
+    margin: 25px 0 0 20px;
     text-transform: uppercase;
 `;
 
