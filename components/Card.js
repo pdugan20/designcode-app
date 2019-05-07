@@ -5,7 +5,7 @@ const Card = props => (
     <Container>
         <Cover>
             <Image source={props.image} />
-            <Title>Styled Components</Title>
+            <Title>{props.title}</Title>
         </Cover>
         <Content>
             <Logo source={props.logo} />
@@ -46,7 +46,7 @@ const Title = styled.Text`
     color: white;
     font-size: 24px;
     font-weight: bold;
-    width: 170px;
+    width: 200px;
     margin-top: 20px;
     padding-left: 20px;
 `;
