@@ -17,15 +17,28 @@ export default class App extends React.Component {
                             <Title>Welcome back,</Title>
                             <Name>Meng</Name>
                             <NotificationIcon
-                                style={{ position: 'absolute', right: 40, top: 10 }}
+                                style={{
+                                    position: 'absolute',
+                                    right: 40,
+                                    top: 10
+                                }}
                             />
                         </TitleBar>
                         <ScrollView
-                            style={{ flexDirection: 'row', padding: 20, paddingLeft: 12, paddingTop: 30 }}
+                            style={{
+                                flexDirection: 'row',
+                                padding: 20,
+                                paddingLeft: 12,
+                                paddingTop: 30
+                            }}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}>
                             {logos.map((logo, index) => (
-                                <Logo key={index} image={logo.image} text={logo.text} />
+                                <Logo
+                                    key={index}
+                                    image={logo.image}
+                                    text={logo.text}
+                                />
                             ))}
                         </ScrollView>
                         <Subtitle>Continue Learning</Subtitle>
