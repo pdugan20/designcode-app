@@ -3,13 +3,17 @@ import Card from '../components/Card';
 import Course from '../components/Course';
 import Logo from '../components/Logo';
 import Menu from '../components/Menu';
+import Avatar from "../components/Avatar";
 import styled from 'styled-components';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Animated, TouchableOpacity, Easing, StatusBar } from 'react-native';
 import { NotificationIcon } from '../Icons';
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
-    return { action: state.action, name: state.name };
+    return {
+        action: state.action,
+        name: state.name
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -75,13 +79,13 @@ class HomeScreen extends React.Component {
                     <SafeAreaView>
                         <ScrollView style={{ height: '100%'}} >
                             <TitleBar>
-                                <Title>Welcome back,</Title>
                                 <TouchableOpacity
                                     onPress={this.props.openMenu}
-                                    activeOpacity={0.8}
-                                    style={{zIndex: 1}}>
-                                    <Name>Meng</Name>
+                                    style={{ position: "absolute", top: 0, left: 0 }}>
+                                    <Avatar />
                                 </TouchableOpacity>
+                                <Title>Welcome back,</Title>
+                                <Name>{this.props.name}</Name>
                                 <NotificationIcon
                                     style={{
                                         position: 'absolute',
@@ -170,6 +174,7 @@ const Title = styled.Text`
     font-size: 16px;
     color: #b8bece;
     font-weight: 500;
+    margin-left: 55px;
 `;
 
 const Subtitle = styled.Text`
@@ -189,6 +194,7 @@ const Name = styled.Text`
     font-size: 20px;
     color: #3c4560;
     font-weight: bold;
+    margin-left: 55px;
 `;
 
 const logos = [
