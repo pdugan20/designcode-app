@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Logo = props => (
     <Container>
-      <Image source={props.image} resizeMode='contain' />
-      <Text>{props.text}</Text>
+        <Image source={props.image} resizeMode='contain' />
+        <Text>{props.text}</Text>
     </Container>
 );
 

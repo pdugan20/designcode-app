@@ -3,11 +3,21 @@ import Card from '../components/Card';
 import Course from '../components/Course';
 import Logo from '../components/Logo';
 import Menu from '../components/Menu';
-import Avatar from "../components/Avatar";
+import Avatar from '../components/Avatar';
 import styled from 'styled-components';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView, Animated, TouchableOpacity, Easing, StatusBar } from 'react-native';
 import { NotificationIcon } from '../Icons';
 import { connect } from 'react-redux';
+import {
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    SafeAreaView,
+    Animated,
+    TouchableOpacity,
+    Easing,
+    StatusBar,
+} from 'react-native';
 
 function mapStateToProps(state) {
     return {
@@ -85,7 +95,7 @@ class HomeScreen extends React.Component {
                             <TitleBar>
                                 <TouchableOpacity
                                     onPress={this.props.openMenu}
-                                    style={{ position: "absolute", top: 0, left: 0 }}>
+                                    style={{ position: 'absolute', top: 0, left: 0 }}>
                                     <Avatar />
                                 </TouchableOpacity>
                                 <Title>Welcome back,</Title>
@@ -124,15 +134,17 @@ class HomeScreen extends React.Component {
                                     <TouchableOpacity
                                         key={index}
                                         onPress={() => {
-                                            this.props.navigation.push("Section");
+                                            this.props.navigation.push('Section', {
+                                                section: card,
+                                            });
                                         }}>
                                         <Card
-                                        key={index}
-                                        title={card.title}
-                                        image={card.image}
-                                        subtitle={card.subtitle}
-                                        caption={card.caption}
-                                        logo={card.logo}
+                                            key={index}
+                                            title={card.title}
+                                            image={card.image}
+                                            subtitle={card.subtitle}
+                                            caption={card.caption}
+                                            logo={card.logo}
                                         />
                                     </TouchableOpacity>
                                 ))}
