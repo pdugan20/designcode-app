@@ -25,6 +25,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HomeScreen extends React.Component {
+    static navigationOptions = {
+      header: null
+    };
+
     state = {
         scale: new Animated.Value(1),
         opacity: new Animated.Value(1)
@@ -117,14 +121,20 @@ class HomeScreen extends React.Component {
                                 style={{paddingBottom:30}}
                                 showsHorizontalScrollIndicator={false}>
                                 {cards.map((card, index) => (
-                                    <Card
-                                    key={index}
-                                    title={card.title}
-                                    image={card.image}
-                                    subtitle={card.subtitle}
-                                    caption={card.caption}
-                                    logo={card.logo}
-                                    />
+                                    <TouchableOpacity
+                                        key={index}
+                                        onPress={() => {
+                                            this.props.navigation.push("Section");
+                                        }}>
+                                        <Card
+                                        key={index}
+                                        title={card.title}
+                                        image={card.image}
+                                        subtitle={card.subtitle}
+                                        caption={card.caption}
+                                        logo={card.logo}
+                                        />
+                                    </TouchableOpacity>
                                 ))}
                             </ScrollView>
                             <Subtitle>Popular Courses</Subtitle>
@@ -158,7 +168,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 const Container = styled.View`
     background: #f0f3f5;
     flex: 1;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     overflow: hidden;
 `;
 
