@@ -12,7 +12,7 @@ function mapDispatchToProps(dispatch) {
     return {
         updateName: name => dispatch({
             type: 'UPDATE_NAME',
-            name: name
+            name: name,
         })
     };
 }

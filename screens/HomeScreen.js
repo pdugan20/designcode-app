@@ -7,6 +7,9 @@ import Avatar from '../components/Avatar';
 import styled from 'styled-components';
 import { NotificationIcon } from '../Icons';
 import { connect } from 'react-redux';
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 import {
     StyleSheet,
     Text,
@@ -18,6 +21,40 @@ import {
     Easing,
     StatusBar,
 } from 'react-native';
+
+const CardsQuery = gql`
+    {
+        cardsCollection {
+            items {
+                title
+                subtitle
+                image {
+                    title
+                    description
+                    contentType
+                    fileName
+                    size
+                    url
+                    width
+                    height
+                }
+                subtitle
+                caption
+                logo {
+                    title
+                    description
+                    contentType
+                    fileName
+                    size
+                    url
+                    width
+                    height
+                }
+                content
+            }
+        }
+    }
+`;
 
 function mapStateToProps(state) {
     return {
@@ -130,24 +167,37 @@ class HomeScreen extends React.Component {
                                 horizontal={true}
                                 style={{paddingBottom:30}}
                                 showsHorizontalScrollIndicator={false}>
-                                {cards.map((card, index) => (
-                                    <TouchableOpacity
-                                        key={index}
-                                        onPress={() => {
-                                            this.props.navigation.push('Section', {
-                                                section: card,
-                                            });
-                                        }}>
-                                        <Card
-                                            key={index}
-                                            title={card.title}
-                                            image={card.image}
-                                            subtitle={card.subtitle}
-                                            caption={card.caption}
-                                            logo={card.logo}
-                                        />
-                                    </TouchableOpacity>
-                                ))}
+
+                                <Query query={CardsQuery}>
+                                    {({ loading, error, data }) => {
+                                        if (loading) return <Message>Loading...</Message>;
+                                        if (error) return <Message>Error...</Message>;
+
+                                        console.log(data.cardsCollection.items);
+
+                                        return (
+                                            <CardsContainer>
+                                                {data.cardsCollection.items.map((card, index) => (
+                                                    <TouchableOpacity
+                                                        key={index}
+                                                        onPress={() => {
+                                                            this.props.navigation.push('Section', {
+                                                                section: card
+                                                            });
+                                                        }}>
+                                                        <Card
+                                                            title={card.title}
+                                                            image={{ uri: card.image.url }}
+                                                            caption={card.caption}
+                                                            logo={{ uri: card.logo.url }}
+                                                            subtitle={card.subtitle}
+                                                            content={card.content}/>
+                                                    </TouchableOpacity>
+                                                ))}
+                                            </CardsContainer>
+                                        );
+                                    }}
+                                </Query>
                             </ScrollView>
                             <Subtitle>Popular Courses</Subtitle>
                             <ScrollView
@@ -218,6 +268,17 @@ const Name = styled.Text`
     color: #3c4560;
     font-weight: bold;
     margin-left: 55px;
+`;
+
+const Message = styled.Text`
+    margin: 20px;
+    color: #b8bece;
+    font-size: 15px;
+    font-weight: 500;
+`;
+
+const CardsContainer = styled.View`
+    flex-direction: row;
 `;
 
 const logos = [

@@ -77,12 +77,12 @@ const TabNavigator = createBottomTabNavigator(
     {
         HomeStack,
         CoursesStack,
-        ProjectsStack
+        ProjectsStack,
     },
     {
         tabBarOptions: {
             activeTintColor: activeColor,
-            inactiveTintColor: inactiveColor
+            inactiveTintColor: inactiveColor,
         }
     },
 );
