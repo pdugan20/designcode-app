@@ -5,10 +5,11 @@ import Logo from '../components/Logo';
 import Menu from '../components/Menu';
 import Avatar from '../components/Avatar';
 import styled from 'styled-components';
-import { NotificationIcon } from '../Icons';
-import { connect } from 'react-redux';
+import ModalLogin from "../components/ModalLogin";
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
+import { NotificationIcon } from '../Icons';
+import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
 import {
     StyleSheet,
@@ -172,9 +173,7 @@ class HomeScreen extends React.Component {
                                     {({ loading, error, data }) => {
                                         if (loading) return <Message>Loading...</Message>;
                                         if (error) return <Message>Error...</Message>;
-
-                                        console.log(data.cardsCollection.items);
-
+                                        // console.log(data.cardsCollection.items);
                                         return (
                                             <CardsContainer>
                                                 {data.cardsCollection.items.map((card, index) => (
@@ -220,6 +219,7 @@ class HomeScreen extends React.Component {
                         </ScrollView>
                     </SafeAreaView>
                 </AnimatedContainer>
+                <ModalLogin />
             </RootView>
         );
     }
