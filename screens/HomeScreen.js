@@ -5,7 +5,7 @@ import Logo from '../components/Logo';
 import Menu from '../components/Menu';
 import Avatar from '../components/Avatar';
 import styled from 'styled-components';
-import ModalLogin from "../components/ModalLogin";
+import ModalLogin from '../components/ModalLogin';
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
 import { NotificationIcon } from '../Icons';
@@ -68,7 +68,10 @@ function mapDispatchToProps(dispatch) {
     return {
         openMenu: () => dispatch({
             type: 'OPEN_MENU'
-        })
+        }),
+        openLogin: () => dispatch({
+            type: 'OPEN_LOGIN'
+        }),
     };
 }
 
@@ -132,7 +135,7 @@ class HomeScreen extends React.Component {
                         <ScrollView style={{ height: '100%'}} >
                             <TitleBar>
                                 <TouchableOpacity
-                                    onPress={this.props.openMenu}
+                                    onPress={this.props.openLogin}
                                     style={{ position: 'absolute', top: 0, left: 0 }}>
                                     <Avatar />
                                 </TouchableOpacity>
