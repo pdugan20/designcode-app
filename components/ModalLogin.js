@@ -7,6 +7,7 @@ import {
     Dimensions,
     Animated,
     Alert,
+    AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { BlurView } from 'expo';
@@ -24,7 +25,11 @@ function mapDispatchToProps(dispatch) {
     return {
         closeLogin: () => dispatch({
             type: 'CLOSE_LOGIN'
-        })
+        }),
+        updateName: name => dispatch({
+            type: "UPDATE_NAME",
+            name
+        }),
     };
 }
 
@@ -40,6 +45,10 @@ class ModalLogin extends React.Component {
         scale: new Animated.Value(1.3),
         translateY: new Animated.Value(0),
     };
+
+    componentDidMount() {
+        this.retrieveName();
+    }
 
     componentDidUpdate() {
         if (this.props.action == 'openLogin') {
@@ -70,6 +79,22 @@ class ModalLogin extends React.Component {
         }
     }
 
+    storeName = async name => {
+        try {
+            await AsyncStorage.setItem('name', name);
+        } catch (error) {}
+    };
+
+    retrieveName = async () => {
+        try {
+            const name = await AsyncStorage.getItem('name');
+            if (name !== null) {
+                console.log(name);
+                this.props.updateName(name);
+            }
+        } catch (error) {}
+    };
+
     handleLogin = () => {
         this.setState({ isLoading: true });
 
@@ -86,15 +111,16 @@ class ModalLogin extends React.Component {
                 this.setState({ isLoading: false });
                 if (response) {
                     this.setState({ isSuccessful: true });
-                        setTimeout(() => {
-                            Alert.alert('Congrats', 'You logged in.');
-                            Keyboard.dismiss();
-                            this.props.closeLogin();
-                            this.setState({ isSuccessful: false });
+                    this.storeName(response.user.email);
+                    this.props.updateName(response.user.email);
+                    setTimeout(() => {
+                        Alert.alert('Congrats', 'You logged in.');
+                        Keyboard.dismiss();
+                        this.props.closeLogin();
+                        this.setState({ isSuccessful: false });
                     }, 1000);
-                    console.log(response.user);
-            }
-        });
+                }
+            });
     };
 
     focusEmail = () => {
