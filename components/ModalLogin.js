@@ -6,11 +6,13 @@ import {
     Keyboard,
     Dimensions,
     Animated,
+    Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { BlurView } from 'expo';
 import Success from '../components/Success';
 import Loading from '../components/Loading';
+import firebase from '../components/Firebase';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -71,12 +73,29 @@ class ModalLogin extends React.Component {
     handleLogin = () => {
         this.setState({ isLoading: true });
 
-        setTimeout(() => {
-          this.props.closeLogin();
-          this.setState({ isSuccessful: false });
-        }, 1000);
-    };
+        const email = this.state.email;
+        const password = this.state.password;
 
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .catch(function(error) {
+                Alert.alert('Error', error.message);
+            })
+            .then(response => {
+                this.setState({ isLoading: false });
+                if (response) {
+                    this.setState({ isSuccessful: true });
+                        setTimeout(() => {
+                            Alert.alert('Congrats', 'You logged in.');
+                            Keyboard.dismiss();
+                            this.props.closeLogin();
+                            this.setState({ isSuccessful: false });
+                    }, 1000);
+                    console.log(response.user);
+            }
+        });
+    };
 
     focusEmail = () => {
         this.setState({
